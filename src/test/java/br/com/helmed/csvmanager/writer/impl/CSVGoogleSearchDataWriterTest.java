@@ -26,12 +26,12 @@ public class CSVGoogleSearchDataWriterTest {
 
     private CSVWriter allocationRuleDataCVSWriter;
     private static final char CSV_SEPARATOR = ',';
-    private static final String UPLOAD_FOLDER = "/upload.folder";
+    private static final String UPLOAD_FOLDER = "/upload";
     final String fileName = getFileName("FR");
 
     @Test public void testOKWriting() throws Exception {
 
-        String pathFileName = getFilePath()+ File.separator + fileName;
+        String pathFileName = getFilePath();
         allocationRuleDataCVSWriter = new CSVGoogleSearchDataWriter();
         List<GoogleSearchCSVData> allocationRuleDataList = new ArrayList<GoogleSearchCSVData>();
 
@@ -44,13 +44,13 @@ public class CSVGoogleSearchDataWriterTest {
         allocationRuleDataCVSWriter.write(pathFileName, getFileHeader(CSV_SEPARATOR), allocationRuleDataList);
 
         assertNotNull(allocationRuleDataCVSWriter.getSuccessList());
-        assertNull(allocationRuleDataCVSWriter.getErrorList());
+        assertTrue(allocationRuleDataCVSWriter.getErrorList().isEmpty());
 
         System.out.println(pathFileName);
     }
 
     private String getFilePath() throws URISyntaxException {
-        return String.valueOf(Paths.get(getClass().getResource(UPLOAD_FOLDER).toURI()));
+        return String.valueOf(Paths.get(getClass().getResource("/").toURI()))+"/"+getFileName("FR");
     }
 
     private String getFileName(String isoCountryCode){
